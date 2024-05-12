@@ -3190,6 +3190,18 @@ prompt_root_indicator() {
 instant_prompt_root_indicator() { prompt_root_indicator; }
 
 ################################################################
+# Segment to display opam stuffs
+prompt_opam() {
+  if command -v opam >/dev/null; then
+    local name=${$(opam switch show):t}
+    if [[ $name == "default" ]]; then
+      return
+    fi
+    _p9k_prompt_segment "$0" darkorange "$_p9k_color1" '' 0 '' "${name//\%/%%}"
+  fi
+}
+
+################################################################
 # Segment to display Rust version number
 prompt_rust_version() {
   local -i len=$#_p9k__prompt _p9k__has_upglob
